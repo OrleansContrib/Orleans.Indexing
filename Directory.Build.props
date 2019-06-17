@@ -1,0 +1,230 @@
+<Project>
+  <!-- Set the repository root into a variable -->
+  <PropertyGroup>
+    <SourceRoot>$(MSBuildThisFileDirectory)</SourceRoot>
+  </PropertyGroup>
+
+  <!-- Set common properties regarding assembly information and nuget packages -->
+  <PropertyGroup>
+    <Authors>Microsoft</Authors>
+    <Product>Microsoft Orleans</Product>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/dotnet/Orleans</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/dotnet/orleans/gh-pages/assets/logo_128.png</PackageIconUrl>
+    <PackageTags>Orleans Cloud-Computing Actor-Model Actors Distributed-Systems C# .NET</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/dotnet/Orleans</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <!-- Common compile parameters -->
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);1591;2003</NoWarn>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <!-- We use full (Windows PDBs) until cross platform support for source link will get better -->
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <!-- FSharp SDK overrides -->
+  <PropertyGroup>
+    <DisableImplicitSystemValueTupleReference>true</DisableImplicitSystemValueTupleReference>
+    <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <TestProjectTargetFramework>net461</TestProjectTargetFramework>
+  </PropertyGroup>
+
+  <!-- Shared Package Versions -->
+  <PropertyGroup>
+    <!-- System packages -->
+    <SystemRuntimeVersion>4.3.0</SystemRuntimeVersion>
+
+    <SystemCollectionsImmutableVersion>1.4.0</SystemCollectionsImmutableVersion>
+    <SystemNetHttpVersion>4.3.4</SystemNetHttpVersion>
+    <SystemReflectionMetadataVersion>1.5.0</SystemReflectionMetadataVersion>
+    <SystemReflectionTypeExtensionsVersion>4.4.0</SystemReflectionTypeExtensionsVersion>
+    <SystemValueTupleVersion>4.4.0</SystemValueTupleVersion>
+    <SystemThreadingTasksExtensionsVersion>4.4.0</SystemThreadingTasksExtensionsVersion>
+    <SystemMemoryVersion>4.5.1</SystemMemoryVersion>
+
+    <!-- Microsoft packages -->
+    <MicrosoftBuildVersion>15.7.179</MicrosoftBuildVersion>
+    <MicrosoftCodeAnalysisVersion>2.8.2</MicrosoftCodeAnalysisVersion>
+
+    <MicrosoftExtensionsConfigurationBinderVersion>2.1.1</MicrosoftExtensionsConfigurationBinderVersion>
+    <MicrosoftExtensionsConfigurationEnvironmentVariablesVersion>2.1.1</MicrosoftExtensionsConfigurationEnvironmentVariablesVersion>
+    <MicrosoftExtensionsConfigurationJsonVersion>2.1.1</MicrosoftExtensionsConfigurationJsonVersion>
+    <MicrosoftExtensionsConfigurationVersion>2.1.1</MicrosoftExtensionsConfigurationVersion>
+    <MicrosoftExtensionsDependencyInjectionVersion>2.1.1</MicrosoftExtensionsDependencyInjectionVersion>
+    <MicrosoftExtensionsDependencyModelVersion>2.0.0</MicrosoftExtensionsDependencyModelVersion>
+    <MicrosoftExtensionsLoggingVersion>2.0.0</MicrosoftExtensionsLoggingVersion>
+    <MicrosoftExtensionsOptionsConfigurationExtensionsVersion>2.1.1</MicrosoftExtensionsOptionsConfigurationExtensionsVersion>
+    <MicrosoftExtensionsOptionsVersion>2.1.1</MicrosoftExtensionsOptionsVersion>
+    <MicrosoftExtensionsHostingAbstractionsVersion>2.1.0</MicrosoftExtensionsHostingAbstractionsVersion>
+    <MicrosoftExtensionsHostingVersion>2.1.0</MicrosoftExtensionsHostingVersion>
+
+    <MicrosoftApplicationInsightsVersion>2.4.0</MicrosoftApplicationInsightsVersion>
+    <MicrosoftAzureEventHubsVersion>2.2.1</MicrosoftAzureEventHubsVersion>
+    <MicrosoftDataSQLiteVersion>2.0.0</MicrosoftDataSQLiteVersion>
+    <MicrosoftPowerShell5ReferenceAssembliesVersion>1.1.0</MicrosoftPowerShell5ReferenceAssembliesVersion>
+    <MicrosoftServiceFabricServicesVersion>3.0.472</MicrosoftServiceFabricServicesVersion>
+    <WindowsAzureStorageVersion>8.2.1</WindowsAzureStorageVersion>
+
+    <FSharpCoreVersion>4.5.2</FSharpCoreVersion>
+
+    <SystemManagementAutomationdllVersion>10.0.10586</SystemManagementAutomationdllVersion>
+
+    <!-- 3rd party packages -->
+    <AWSSDKDynamoDBv2Version>3.3.4.17</AWSSDKDynamoDBv2Version>
+    <AWSSDKSQSVersion>3.3.2.7</AWSSDKSQSVersion>
+    <BondCoreCSharpVersion>5.3.1</BondCoreCSharpVersion>
+    <ConsulVersion>0.7.2.3</ConsulVersion>
+    <GoogleCloudPubSubV1Version>1.0.0-beta13</GoogleCloudPubSubV1Version>
+    <GoogleProtobufVersion>3.4.0</GoogleProtobufVersion>
+    <ProtobufNetVersion>2.3.7</ProtobufNetVersion>
+    <MySqlDataVersion>6.9.9</MySqlDataVersion>
+    <NewRelicAgentApiVersion>8.0.0.0</NewRelicAgentApiVersion>
+    <NewtonsoftJsonVersion>10.0.3</NewtonsoftJsonVersion>
+    <NpgsqlVersion>3.1.9</NpgsqlVersion>
+    <NSubstituteVersion>1.10.0</NSubstituteVersion>
+    <ZooKeeperNetExVersion>3.4.12.1</ZooKeeperNetExVersion>
+
+    <!-- Test related packages -->
+    <FluentAssertionsVersion>4.19.4</FluentAssertionsVersion>
+    <MicrosoftTestSdkVersion>16.0.1</MicrosoftTestSdkVersion>
+    <BenchmarkDotNetVersion>0.11.4</BenchmarkDotNetVersion>
+    <XunitSkippableFactVersion>1.3.12</XunitSkippableFactVersion>
+    <DotNetxUnitVersion>2.3.1</DotNetxUnitVersion>
+    <xUnitVersion>2.4.1</xUnitVersion>
+    <NodaTimeVersion>2.2.2</NodaTimeVersion>
+    <OrleansVersion>2.4.0</OrleansVersion>
+
+    <!-- Tooling related packages -->
+    <SourceLinkVersion>2.7.6</SourceLinkVersion>
+  </PropertyGroup>
+
+  <!-- Versioning properties -->
+  <PropertyGroup>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <VersionPrefix Condition=" '$(VersionPrefix)'=='' ">2.3.0</VersionPrefix>
+  </PropertyGroup>
+
+  <!-- For Debug builds generated a date/time dependent version suffix -->
+  <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
+    <VersionSuffix Condition=" '$(VersionSuffix)'=='' ">dev</VersionSuffix>
+    <VersionSuffix Condition=" '$(VersionDateSuffix)'!='' ">$(VersionSuffix)-$(VersionDateSuffix)</VersionSuffix>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" $(FullBuild)=='' ">
+    <FullBuild>true</FullBuild>
+  </PropertyGroup>
+
+  <!-- Inner dependency versions -->
+  <PropertyGroup Condition="$(FullBuild) != 'true'">
+    <OrleansCoreAbstractionsVersion>2.3.0</OrleansCoreAbstractionsVersion>
+    <OrleansRuntimeAbstractionsVersion>2.3.0</OrleansRuntimeAbstractionsVersion>
+    <OrleansCoreVersion>2.3.0</OrleansCoreVersion>
+    <OrleansRuntimeVersion>2.3.0</OrleansRuntimeVersion>
+    <OrleansCoreLegacyVersion>2.3.0</OrleansCoreLegacyVersion>
+    <OrleansRuntimeLegacyVersion>2.3.0</OrleansRuntimeLegacyVersion>
+    <OrleansProvidersVersion>2.3.0</OrleansProvidersVersion>
+    <OrleansExtensionsVersion>2.3.0</OrleansExtensionsVersion>
+    <OrleansEventSourcingVersion>2.3.0</OrleansEventSourcingVersion>
+    <OrleansAdoNetVersion>2.3.0</OrleansAdoNetVersion>
+    <OrleansAWSVersion>2.3.0</OrleansAWSVersion>
+    <OrleansAzureClusteringVersion>2.3.0</OrleansAzureClusteringVersion>
+    <OrleansAzureStreamingVersion>2.3.0</OrleansAzureStreamingVersion>
+    <OrleansAzureEventHubsVersion>2.3.0</OrleansAzureEventHubsVersion>
+    <OrleansAzurePersistenceVersion>2.3.0</OrleansAzurePersistenceVersion>
+    <OrleansAzureRemindersVersion>2.3.0</OrleansAzureRemindersVersion>
+    <OrleansAzureMetapackageVersion>2.3.0</OrleansAzureMetapackageVersion>
+    <OrleansGoogleCloudProviderVersion>2.3.0</OrleansGoogleCloudProviderVersion>
+    <OrleansAzureCloudServicesVersion>2.3.0</OrleansAzureCloudServicesVersion>
+    <OrleansTestingHostVersion>2.3.0</OrleansTestingHostVersion>
+    <OrleansTransactionsVersion>2.3.0</OrleansTransactionsVersion>
+    <OrleansServiceFabricVersion>2.3.0</OrleansServiceFabricVersion>
+    <OrleansSerializersVersion>2.3.0</OrleansSerializersVersion>
+    <OrleansToolsVersion>2.3.0</OrleansToolsVersion>
+    <OrleansClientVersion>2.3.0</OrleansClientVersion>
+    <OrleansServerVersion>2.3.0</OrleansServerVersion>
+    <OrleansCodegenVersion>2.3.0</OrleansCodegenVersion>
+    <OrleansEventHubProviderVersion>2.3.0</OrleansEventHubProviderVersion>
+    <OrleansTelemetryConsumersVersion>2.3.0</OrleansTelemetryConsumersVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(FullBuild) == 'true'">
+    <OrleansCoreAbstractionsVersion>$(VersionPrefix)</OrleansCoreAbstractionsVersion>
+    <OrleansRuntimeAbstractionsVersion>$(VersionPrefix)</OrleansRuntimeAbstractionsVersion>
+    <OrleansCoreVersion>$(VersionPrefix)</OrleansCoreVersion>
+    <OrleansRuntimeVersion>$(VersionPrefix)</OrleansRuntimeVersion>
+    <OrleansCoreLegacyVersion>$(VersionPrefix)</OrleansCoreLegacyVersion>
+    <OrleansRuntimeLegacyVersion>$(VersionPrefix)</OrleansRuntimeLegacyVersion>
+    <OrleansProvidersVersion>$(VersionPrefix)</OrleansProvidersVersion>
+    <OrleansExtensionsVersion>$(VersionPrefix)</OrleansExtensionsVersion>
+    <OrleansEventSourcingVersion>$(VersionPrefix)</OrleansEventSourcingVersion>
+    <OrleansAdoNetVersion>$(VersionPrefix)</OrleansAdoNetVersion>
+    <OrleansAWSVersion>$(VersionPrefix)</OrleansAWSVersion>
+    <OrleansAzureClusteringVersion>$(VersionPrefix)</OrleansAzureClusteringVersion>
+    <OrleansAzureStreamingVersion>$(VersionPrefix)</OrleansAzureStreamingVersion>
+    <OrleansAzureEventHubsVersion>$(VersionPrefix)</OrleansAzureEventHubsVersion>
+    <OrleansAzurePersistenceVersion>$(VersionPrefix)</OrleansAzurePersistenceVersion>
+    <OrleansAzureRemindersVersion>$(VersionPrefix)</OrleansAzureRemindersVersion>
+    <OrleansAzureMetapackageVersion>$(VersionPrefix)</OrleansAzureMetapackageVersion>
+    <OrleansGoogleCloudProviderVersion>$(VersionPrefix)</OrleansGoogleCloudProviderVersion>
+    <OrleansAzureCloudServicesVersion>$(VersionPrefix)</OrleansAzureCloudServicesVersion>
+    <OrleansTestingHostVersion>$(VersionPrefix)</OrleansTestingHostVersion>
+    <OrleansTransactionsVersion>$(VersionPrefix)</OrleansTransactionsVersion>
+    <OrleansServiceFabricVersion>$(VersionPrefix)</OrleansServiceFabricVersion>
+    <OrleansSerializersVersion>$(VersionPrefix)</OrleansSerializersVersion>
+    <OrleansToolsVersion>$(VersionPrefix)</OrleansToolsVersion>
+    <OrleansClientVersion>$(VersionPrefix)</OrleansClientVersion>
+    <OrleansServerVersion>$(VersionPrefix)</OrleansServerVersion>
+    <OrleansCodegenVersion>$(VersionPrefix)</OrleansCodegenVersion>
+    <OrleansEventHubProviderVersion>$(VersionPrefix)</OrleansEventHubProviderVersion>
+    <OrleansTelemetryConsumersVersion>$(VersionPrefix)</OrleansTelemetryConsumersVersion>
+  </PropertyGroup>
+
+  <!-- Set output folder for created NuGet packages -->
+  <PropertyGroup>
+    <PackageOutputPath Condition=" '$(PackageOutputPath)'=='' ">$(SourceRoot)/Artifacts/$(Configuration)</PackageOutputPath>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition="'$(OfficialBuild)' != 'true'">
+      <!-- On non-official builds we don't burn in a git sha.  In large part because it
+           hurts our determinism efforts as binaries which should be the same between
+           builds will not (due to developers building against different HEAD
+           values -->
+      <PropertyGroup>
+        <GitHeadSha>&lt;developer build&gt;</GitHeadSha>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(BUILD_SOURCEVERSION)' != ''">
+      <PropertyGroup>
+        <GitHeadSha>$(BUILD_SOURCEVERSION)</GitHeadSha>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(BUILD_SOURCEVERSION)' == '' AND '$(GIT_COMMIT)' != ''">
+      <PropertyGroup>
+        <GitHeadSha>$(GIT_COMMIT)</GitHeadSha>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <GitHeadSha>Not found</GitHeadSha>
+        <DotGitDir>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory).git'))</DotGitDir>
+        <HeadFileContent Condition="Exists('$(DotGitDir)/HEAD')">$([System.IO.File]::ReadAllText('$(DotGitDir)/HEAD').Trim())</HeadFileContent>
+        <RefPath Condition="$(HeadFileContent.StartsWith('ref: '))">$(DotGitDir)/$(HeadFileContent.Substring(5))</RefPath>
+        <GitHeadSha Condition="'$(RefPath)' != '' AND Exists('$(RefPath)')">$([System.IO.File]::ReadAllText('$(RefPath)').Trim())</GitHeadSha>
+        <GitHeadSha Condition="'$(HeadFileContent)' != '' AND '$(RefPath)' == ''">$(HeadFileContent)</GitHeadSha>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+</Project>

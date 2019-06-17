@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Microsoft.Orleans.Indexing</PackageId>
+    <Title>Microsoft Orleans Indexing</Title>
+    <Summary>Library for Orleans Indexing feature</Summary>
+    <Description>
+      Library for Orleans Indexing feature
+    </Description>
+    <PackageTags>$(PackageTags) Indexing</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>Orleans.Indexing</AssemblyName>
+    <RootNamespace>Orleans.Indexing</RootNamespace>
+    <OrleansBuildTimeCodeGen>true</OrleansBuildTimeCodeGen>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>;1591</NoWarn>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Orleans.Core" Version="$(OrleansVersion)" />
+    <PackageReference Include="Microsoft.Orleans.Core.Legacy" Version="$(OrleansVersion)" />
+    <PackageReference Include="Microsoft.Orleans.OrleansProviders" Version="$(OrleansVersion)" />
+    <PackageReference Include="Microsoft.Orleans.OrleansRuntime" Version="$(OrleansVersion)" />
+    <PackageReference Include="Microsoft.Orleans.OrleansProviders" Version="$(OrleansVersion)" />
+    <PackageReference Include="Microsoft.Orleans.OrleansRuntime" Version="$(OrleansVersion)" />
+    <PackageReference Include="Microsoft.Orleans.Transactions" Version="$(OrleansVersion)" />
+  </ItemGroup>
+</Project>
