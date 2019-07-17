@@ -8,8 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TestExtensions;
-using UnitTests.GrainInterfaces;
-using UnitTests.Grains;
 
 namespace Orleans.Indexing.Tests
 {
@@ -44,8 +42,6 @@ namespace Orleans.Indexing.Tests
                        .ConfigureApplicationParts(parts =>
                        {
                            parts.AddApplicationPart(typeof(BaseIndexingFixture).Assembly).WithReferences();
-                           parts.AddApplicationPart(typeof(ISimpleGrain).Assembly).WithReferences();
-                           parts.AddApplicationPart(typeof(SimpleGrain).Assembly).WithReferences();
                        });
             return databaseName != null
                 ? hostBuilder.AddCosmosDBGrainStorage(IndexingTestConstants.CosmosDBGrainStorage, opt =>
@@ -73,8 +69,6 @@ namespace Orleans.Indexing.Tests
                                 .ConfigureApplicationParts(parts =>
                                 {
                                     parts.AddApplicationPart(typeof(BaseIndexingFixture).Assembly);
-                                    parts.AddApplicationPart(typeof(ISimpleGrain).Assembly);
-                                    parts.AddApplicationPart(typeof(SimpleGrain).Assembly);
                                 });
         }
 
