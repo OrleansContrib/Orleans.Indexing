@@ -5,6 +5,7 @@ using Orleans.Hosting;
 using Orleans.Runtime;
 using Orleans.Indexing.Facet;
 using Orleans.Services;
+using System.Linq;
 
 namespace Orleans.Indexing
 {
@@ -55,5 +56,25 @@ namespace Orleans.Indexing
 
         internal static void AddGrainService(this IServiceCollection services, Func<IServiceProvider, IGrainService> creationFunc)
             => services.AddSingleton(sp => creationFunc(sp));
+
+        /// <summary>
+        /// Registers an existing registration of <typeparamref name="TImplementation"/> as a provider of service type <typeparamref name="TService"/>.
+        /// Copied from https://github.com/dotnet/orleans/blob/master/src/Orleans.Core/Configuration/ServiceCollectionExtensions.cs
+        /// </summary>
+        /// <typeparam name="TService">The service type being provided.</typeparam>
+        /// <typeparam name="TImplementation">The implementation of <typeparamref name="TService"/>.</typeparam>
+        /// <param name="services">The service collection.</param>
+        internal static void AddFromExisting<TService, TImplementation>(this IServiceCollection services) where TImplementation : TService
+        {
+            var registration = services.FirstOrDefault(service => service.ServiceType == typeof(TImplementation));
+            if (registration != null)
+            {
+                var newRegistration = new ServiceDescriptor(
+                    typeof(TService),
+                    sp => sp.GetRequiredService<TImplementation>(),
+                    registration.Lifetime);
+                services.Add(newRegistration);
+            }
+        }
     }
 }

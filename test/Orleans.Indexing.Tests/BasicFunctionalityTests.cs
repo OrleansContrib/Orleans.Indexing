@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Orleans.Indexing.Facet;
 using Xunit;
+using System.Linq;
 
 namespace Orleans.Indexing.Tests
 {
@@ -68,7 +69,10 @@ namespace Orleans.Indexing.Tests
         [Fact, TestCategory("BVT"), TestCategory("Indexing")]
         public void Test_Validate_Indexes()
         {
-            IndexValidator.Validate(typeof(BasicFunctionalityTests).Assembly);
+            var types = typeof(BasicFunctionalityTests).Assembly.GetTypes()
+                .Where(t => typeof(Grain).IsAssignableFrom(t) && typeof(IIndexableGrain).IsAssignableFrom(t) && !t.IsAbstract)
+                .ToArray();
+            IndexValidator.Validate(types);
         }
     }
 }

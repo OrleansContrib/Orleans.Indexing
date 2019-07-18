@@ -134,7 +134,7 @@ namespace Orleans.Indexing
 
             // This must call the static Silo(IndexManager) methods because we may not be in the silo.
             var index = typeof(IGrain).IsAssignableFrom(idxType)
-                ? (IIndexInterface)this.grainFactory.GetGrain(IndexUtils.GetIndexGrainPrimaryKey(grainInterfaceType, indexName), idxType)
+                ? (IIndexInterface)this.grainFactory.GetGrain(idxType, IndexUtils.GetIndexGrainPrimaryKey(grainInterfaceType, indexName))
                 : idxType.IsClass
                     ? (IIndexInterface)Activator.CreateInstance(idxType, this.indexManager.ServiceProvider, indexName, isUniqueIndex)
                     : throw new IndexException(string.Format("{0} is neither a grain nor a class. Index \"{1}\" cannot be created.", idxType, indexName));

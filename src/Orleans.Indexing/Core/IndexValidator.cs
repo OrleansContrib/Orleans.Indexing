@@ -7,10 +7,9 @@ namespace Orleans.Indexing
 {
     public static class IndexValidator
     {
-        public static void Validate(Assembly assembly)
+        public static void Validate(Type[] types)
         {
-            var grainClassTypes = ApplicationPartsIndexableGrainLoader.GetAssemblyIndexedConcreteGrainClasses(assembly);
-            var _ = ApplicationPartsIndexableGrainLoader.GetIndexRegistry(null, grainClassTypes);
+            var _ = ApplicationPartsIndexableGrainLoader.GetIndexRegistry(null, types);
         }
     }
 }
