@@ -10,6 +10,10 @@
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="$(FluentAssertionsVersion)" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Orleans.CodeGenerator.MSBuild" Version="$(OrleansVersion)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Orleans.TestingHost" Version="$(OrleansVersion)" />
     <PackageReference Include="Orleans.Persistence.CosmosDB" Version="1.2.1" />
     <PackageReference Include="System.Net.Http" Version="$(SystemNetHttpVersion)" />
@@ -22,7 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Orleans.Indexing\Orleans.Indexing.csproj" />
-    <ProjectReference Include="..\TestInfrastructure\Orleans.TestingHost.Legacy\Orleans.TestingHost.Legacy.csproj" />
     <ProjectReference Include="..\TestInfrastructure\TestExtensions\TestExtensions.csproj" />
   </ItemGroup>
 

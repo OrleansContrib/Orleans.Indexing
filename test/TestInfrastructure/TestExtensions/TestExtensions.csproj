@@ -16,10 +16,7 @@
     <PackageReference Include="xunit.extensibility.execution" Version="$(xUnitVersion)" />
     <PackageReference Include="Xunit.SkippableFact" Version="$(XunitSkippableFactVersion)" />
     <PackageReference Include="FluentAssertions" Version="$(FluentAssertionsVersion)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Orleans.TestingHost.Legacy\Orleans.TestingHost.Legacy.csproj" />
+    <PackageReference Include="Microsoft.Orleans.TestingHost" Version="$(OrleansVersion)" />
   </ItemGroup>
   
 </Project>
