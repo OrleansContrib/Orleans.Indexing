@@ -10,6 +10,8 @@ namespace Orleans.Indexing.Tests
 {
     public static class IndexingTestUtils
     {
+        private static TimeSpan waitTimeout = TimeSpan.FromSeconds(5);
+
         public static async Task<int> CountItemsStreamingIn<TIGrain, TProperties, TQueryProp>(this IndexingTestRunnerBase runner,
                                                                 Func<IndexingTestRunnerBase, TQueryProp, Tuple<IOrleansQueryable<TIGrain, TProperties>, Func<TIGrain, Task<TQueryProp>>>> queryTupleFunc,
                                                                 string propertyName, TQueryProp queryValue, int delayInMilliseconds = 0)
@@ -42,7 +44,7 @@ namespace Orleans.Indexing.Tests
                 return Task.CompletedTask;
             }));
 
-            int observedCount = await taskCompletionSource.Task;
+            int observedCount = await taskCompletionSource.Task.WithTimeout(waitTimeout);
             Assert.Equal(observedCount, (await queryItems.GetResults()).Count());
             return observedCount;
         }
