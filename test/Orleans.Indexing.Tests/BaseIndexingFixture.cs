@@ -77,9 +77,7 @@ namespace Orleans.Indexing.Tests
 
         private static IEnumerable<string> GetDSMIStateFieldsToIndex()
         {
-            var grainClassTypes = typeof(BaseIndexingFixture).Assembly.GetTypes()
-                .Where(t => typeof(Grain).IsAssignableFrom(t) && !t.IsAbstract)
-                .ToArray();
+            var grainClassTypes = typeof(BaseIndexingFixture).Assembly.GetConcreteGrainClasses().ToArray();
 
             // Orleans.CosmosDB appends the field names to "State."; thus we do not prepend the interface names.
             var interfacesToIndexedPropertyNames = new Dictionary<Type, string[]>();

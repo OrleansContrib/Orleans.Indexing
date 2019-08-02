@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Orleans.Indexing.Facet;
 using Xunit;
 using System.Linq;
@@ -8,12 +7,12 @@ namespace Orleans.Indexing.Tests
 {
     public class BasicFunctionalityTests
     {
-        const string IntNullValue = "111";
-        const string UIntNullValue = "222";
-        const string FloatNullValue = "333";
-        const string DoubleNullValue = "444";
-        const string DecimalNullValue = "555";
-        const string DateTimeNullValue = "2018-06-05T11:36:26.9047468-07:00";
+        private const string IntNullValue = "111";
+        private const string UIntNullValue = "222";
+        private const string FloatNullValue = "333";
+        private const string DoubleNullValue = "444";
+        private const string DecimalNullValue = "555";
+        private const string DateTimeNullValue = "2018-06-05T11:36:26.9047468-07:00";
 
         class NullValuesTestState
         {
@@ -68,11 +67,6 @@ namespace Orleans.Indexing.Tests
         /// </summary>
         [Fact, TestCategory("BVT"), TestCategory("Indexing")]
         public void Test_Validate_Indexes()
-        {
-            var types = typeof(BasicFunctionalityTests).Assembly.GetTypes()
-                .Where(t => typeof(Grain).IsAssignableFrom(t) && typeof(IIndexableGrain).IsAssignableFrom(t) && !t.IsAbstract)
-                .ToArray();
-            IndexValidator.Validate(types);
-        }
+            => IndexValidator.Validate(typeof(BasicFunctionalityTests).Assembly.GetIndexedGrainClasses().ToArray());
     }
 }

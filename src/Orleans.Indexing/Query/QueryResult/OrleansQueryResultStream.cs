@@ -36,9 +36,7 @@ namespace Orleans.Indexing
             => this._stream.OnNextAsync(item, token);
 
         public virtual Task OnNextAsync(IList<SequentialItem<TIGrain>> batch)
-        {
-            return Task.WhenAll(batch.Select(item => this._stream.OnNextAsync(item.Item, item.Token)));
-        }
+            => Task.WhenAll(batch.Select(item => this._stream.OnNextAsync(item.Item, item.Token)));
 
         public Task<StreamSubscriptionHandle<TIGrain>> SubscribeAsync(IAsyncBatchObserver<TIGrain> observer)
             => this._stream.SubscribeAsync(observer);

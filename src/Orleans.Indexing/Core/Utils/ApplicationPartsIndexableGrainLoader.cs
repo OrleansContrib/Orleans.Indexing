@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Orleans.ApplicationParts;
 using Orleans.Hosting;
-using Orleans.Metadata;
 using Orleans.Runtime;
 
 namespace Orleans.Indexing
@@ -31,14 +30,9 @@ namespace Orleans.Indexing
         }
 
         private static Type[] GetIndexedConcreteGrainClasses(IApplicationPartManager applicationPartManager, ILogger logger = null)
-        {
-            var grainClassFeature = new GrainClassFeature();
-            applicationPartManager.PopulateFeature(grainClassFeature);
-            return grainClassFeature.Classes
-                .Where(c => typeof(IIndexableGrain).IsAssignableFrom(c.ClassType))
-                .Select(c => c.ClassType)
+            => applicationPartManager.ApplicationParts.OfType<AssemblyPart>()
+                .SelectMany(part => part.Assembly.GetIndexedGrainClasses())
                 .ToArray();
-        }
 
         /// <summary>
         /// This method crawls the assemblies and looks for the index definitions (determined by extending the <see cref="IIndexableGrain{TProperties}"/>

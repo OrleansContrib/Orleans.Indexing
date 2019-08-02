@@ -24,7 +24,8 @@ namespace Orleans.Indexing.Facet
                 ITransactionalStateFactory transactionalStateFactory
             ) : base(sp, config, context)
         {
-            var transactionalStateConfig = new IndexingTransactionalStateConfiguration(config.StateName, config.StorageName);
+            var indexingTransactionalStateConfig = new IndexingTransactionalStateConfiguration(config.StateName, config.StorageName);
+            var transactionalStateConfig = new TransactionalStateConfiguration(indexingTransactionalStateConfig);
             this.transactionalState = transactionalStateFactory.Create<IndexedGrainStateWrapper<TGrainState>>(transactionalStateConfig);
         }
 

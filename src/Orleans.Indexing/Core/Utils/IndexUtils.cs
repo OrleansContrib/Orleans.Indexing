@@ -53,6 +53,12 @@ namespace Orleans.Indexing
             return key + "-" + next;
         }
 
+        public static IEnumerable<Type> GetIndexedGrainClasses(this Assembly assembly)
+            => assembly.GetConcreteGrainClasses().Where(t => typeof(IIndexableGrain).IsAssignableFrom(t));
+
+        public static IEnumerable<Type> GetConcreteGrainClasses(this Assembly assembly)
+            => assembly.GetTypes().Where(t => typeof(Grain).IsAssignableFrom(t) && !t.IsAbstract);
+
         /// <summary>
         /// This method is a central place for finding the indexes defined on a getter method of a given
         /// grain interface.
