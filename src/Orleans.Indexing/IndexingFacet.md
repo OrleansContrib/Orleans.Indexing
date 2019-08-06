@@ -389,6 +389,17 @@ Currently the only recognized storage provider is [Orleans.CosmosDB](https://git
 
 While the Indexing infrastructure has been updated to place these indexes within a transaction context, the CosmosDB provider does not yet support the required [Orleans Transactions](http://dotnet.github.io/orleans/Documentation/grains/transactions.html) interfaces (there is currently a PR pending for this). Because of this, the `IStorage` implementation is wrapped in a storage bridge by the Orleans Transactions implementation. Because this wrapping adds an additional element to the indexed-property specified in the CosmosDB StateFieldsToIndex configuration (see BaseIndexingFixture.cs in the Indexing unit tests), a `TransactionalIndexedState` attribute must specify `IndexUtils.IndexedGrainStateName` as the `stateName`.
 
+For Orleans tests to connect to CosmosDB, an "OrleansTestSecrets.json" file must be in the current directory or a higher directory, and must contain entries for:
+```c#
+{ 
+    ...,
+    "CosmosDBEndpoint":"https://xxxxxx.documents.azure.com:443/",
+    "CosmosDBKey":"yyyy...yyyy=="
+}
+```
+
+Production Orleans apps must call `ISiloHostBuilder.AddCosmosDBGrainStorage` with the same information during silo configuration.
+
 ##### Example Attribute Specification
 Here is an example of IndexedStateAttribute use; the IIndexedState constructor parameter is instantiated by the Orleans Facet infrastructure based upon the Attribute type and is stored in the Grain class for later use. For more information see the [Grain implementation class](#application-grain-implementation-classes) section below.
 ```c#
