@@ -149,7 +149,7 @@ The *MultiIndex\** series of tests is separate from the *Player* series. This se
 - Base State, Property, and Grain interfaces are defined in the [test/Orleans.Indexing.Tests/Grains/MultiIndex](/test/Orleans.Indexing.Tests/Grains/MultiIndex) subdirectory.
 - Test runners are also defined in the [test/Orleans.Indexing.Tests/Runners/MultiIndex](/test/Orleans.Indexing.Tests/Runners/MultiIndex) subdirectory.
   - Each file contains the state, property, interface, and grain implementation definitions, as defined by the file name.
-  - [test/Orleans.Indexing.Tests/Grains/ITestIndexProperties.cs](/test/Orleans.Indexing.Tests/Grains/ITestIndexProperties.cs) describes the abbreviations used in the file and test names.
+  - [test/Orleans.Indexing.Tests/Grains/MultiIndex/ITestMultiIndexProperties.cs](/test/Orleans.Indexing.Tests/Grains/MultiIndex/ITestMultiIndexProperties.cs) describes the abbreviations used in the file and test names.
     - For example, MultiIndex_AI_EG_Runner defines all interfaces, classes, and tests to implement testing for Eager Active indexes.
   - Testing includes unique and nonunique indexes on string and int. Additional combinations are TBD.
 
@@ -158,7 +158,7 @@ The *MultiInterface\** series of tests focuses on multiple indexed interfaces, e
 - Base State, Property, and Grain interfaces are defined in the [test/Orleans.Indexing.Tests/Grains/MultiInterface](/test/Orleans.Indexing.Tests/Grains/MultiInterface) subdirectory.
 - Test runners are also defined in the [test/Orleans.Indexing.Tests/Runners/MultiInterface](/test/Orleans.Indexing.Tests/Runners/MultiInterface) subdirectory.
   - Each file contains the state, property, interface, and grain implementation definitions, as defined by the file name.
-  - [test/Orleans.Indexing.Tests/Grains/MultiIndex/ITestMultiIndexIndexProperties.cs](/test/Orleans.Indexing.Tests/Grains/ITestIndexProperties.cs) describes the abbreviations used in the file and test names (except for those related to property names; MultiInterface uses the properties interface name instead), but MultiInterface does not otherwise use ITestIndexProperties.
+  - [test/Orleans.Indexing.Tests/Grains/MultiIndex/ITestMultiIndexProperties.cs](/test/Orleans.Indexing.Tests/Grains/MultiIndex/ITestMultiIndexProperties.cs) describes the abbreviations used in the file and test names (except for those related to property names; MultiInterface uses the properties interface name instead), but MultiInterface does not otherwise use ITestIndexProperties.
     - For example, MultiInterface_AI_EG_Runner defines all interfaces, classes, and tests to implement testing for Eager Active indexes.
   - Testing uses IPersonGrain, IJobGrain, and IEmployeeGrain indexed interfaces on an Employee grain.
 
