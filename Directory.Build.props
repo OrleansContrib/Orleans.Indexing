@@ -104,7 +104,7 @@
     <DotNetxUnitVersion>2.3.1</DotNetxUnitVersion>
     <xUnitVersion>2.4.1</xUnitVersion>
     <NodaTimeVersion>2.2.2</NodaTimeVersion>
-    <OrleansVersion>2.5.0-ci*</OrleansVersion>
+    <OrleansVersion>3.0.0-beta*</OrleansVersion>
 
     <!-- Tooling related packages -->
     <SourceLinkVersion>2.7.6</SourceLinkVersion>
