@@ -14,7 +14,7 @@ namespace Orleans.Indexing
         /// <summary>
         /// Configure silo to use indexing using a configure action.
         /// </summary>
-        public static ISiloHostBuilder UseIndexing(this ISiloHostBuilder builder, Action<IndexingOptions> configureOptions = null)
+        public static ISiloBuilder UseIndexing(this ISiloBuilder builder, Action<IndexingOptions> configureOptions = null)
         {
             // This is necessary to get the configured NumWorkflowQueuesPerInterface for IndexFactory.RegisterIndexWorkflowQueueGrainServices.
             var indexingOptions = new IndexingOptions();

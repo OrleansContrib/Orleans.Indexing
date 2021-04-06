@@ -14,9 +14,9 @@ namespace Orleans.Indexing.Tests
             base.AddSiloBuilderConfigurator(builder);
         }
 
-        internal class GrainRecoverySiloBuilderConfigurator : ISiloBuilderConfigurator
+        internal class GrainRecoverySiloBuilderConfigurator : ISiloConfigurator
         {
-            public void Configure(ISiloHostBuilder hostBuilder) =>
+            public void Configure(ISiloBuilder hostBuilder) =>
                 hostBuilder.ConfigureServices(services => services.AddSingleton<IInjectableCode>(_ => new TestInjectableCode { SkipQueueThread = true }));
         }
     }
@@ -29,9 +29,9 @@ namespace Orleans.Indexing.Tests
             base.AddSiloBuilderConfigurator(builder);
         }
 
-        internal class QueueRecoverySiloBuilderConfigurator : ISiloBuilderConfigurator
+        internal class QueueRecoverySiloBuilderConfigurator : ISiloConfigurator
         {
-            public void Configure(ISiloHostBuilder hostBuilder) =>
+            public void Configure(ISiloBuilder hostBuilder) =>
                 hostBuilder.ConfigureServices(services => services.AddSingleton<IInjectableCode>(_ => new TestInjectableCode { ForceReincarnatedQueue = true }));
         }
     }

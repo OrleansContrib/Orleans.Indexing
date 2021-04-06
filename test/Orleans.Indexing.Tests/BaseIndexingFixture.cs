@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Extensions.Hosting;
 using TestExtensions;
 
 namespace Orleans.Indexing.Tests
@@ -20,7 +21,7 @@ namespace Orleans.Indexing.Tests
             return builder;
         }
 
-        internal static ISiloHostBuilder Configure(ISiloHostBuilder hostBuilder, string databaseName = null)
+        internal static ISiloBuilder Configure(ISiloBuilder hostBuilder, string databaseName = null)
         {
             string cosmosDBEndpoint = string.Empty, cosmosDBKey = string.Empty;
             if (databaseName != null)
@@ -48,9 +49,7 @@ namespace Orleans.Indexing.Tests
                     {
                         opt.AccountEndpoint = cosmosDBEndpoint;
                         opt.AccountKey = cosmosDBKey;
-                        opt.ConnectionMode = Microsoft.Azure.Documents.Client.ConnectionMode.Gateway;
                         opt.DropDatabaseOnInit = true;
-                        opt.AutoUpdateStoredProcedures = true;
                         opt.CanCreateResources = true;
                         opt.DB = databaseName;
                         opt.InitStage = ServiceLifecycleStage.RuntimeStorageServices;
