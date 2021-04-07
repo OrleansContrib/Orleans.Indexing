@@ -3,21 +3,26 @@
     <RootNamespace>Orleans.Indexing.Tests</RootNamespace>
     <AssemblyName>Orleans.Indexing.Tests</AssemblyName>
     <OrleansBuildTimeCodeGen>true</OrleansBuildTimeCodeGen>
-    <TargetFrameworks />
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="$(FluentAssertionsVersion)" />
+    <PackageReference Include="Lucene.Net" Version="4.8.0-beta00014" />
+    <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00014" />
+    <PackageReference Include="Lucene.Net.Queries" Version="4.8.0-beta00014" />
+    <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00014" />
+    <PackageReference Include="Lucene.Net.Spatial" Version="4.8.0-beta00014" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.Orleans.CodeGenerator.MSBuild" Version="$(OrleansVersion)">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Orleans.TestingHost" Version="$(OrleansVersion)" />
-    <PackageReference Include="Orleans.Persistence.CosmosDB" Version="3.0.3" />
     <PackageReference Include="System.Net.Http" Version="$(SystemNetHttpVersion)" />
     <PackageReference Include="xunit" Version="$(xUnitVersion)" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
     <PackageReference Include="Xunit.SkippableFact" Version="$(XunitSkippableFactVersion)" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="$(DotNetxUnitVersion)" />
     <PackageReference Include="xunit.runner.visualstudio" Version="$(xUnitVersion)" />

@@ -44,18 +44,7 @@ namespace Orleans.Indexing.Tests
                        {
                            parts.AddApplicationPart(typeof(BaseIndexingFixture).Assembly).WithReferences();
                        });
-            return databaseName != null
-                ? hostBuilder.AddCosmosDBGrainStorage(IndexingTestConstants.CosmosDBGrainStorage, opt =>
-                    {
-                        opt.AccountEndpoint = cosmosDBEndpoint;
-                        opt.AccountKey = cosmosDBKey;
-                        opt.DropDatabaseOnInit = true;
-                        opt.CanCreateResources = true;
-                        opt.DB = databaseName;
-                        opt.InitStage = ServiceLifecycleStage.RuntimeStorageServices;
-                        opt.StateFieldsToIndex.AddRange(GetDSMIStateFieldsToIndex());
-                    })
-                : hostBuilder;
+            return hostBuilder;
         }
 
         internal static IClientBuilder Configure(IClientBuilder clientBuilder)
