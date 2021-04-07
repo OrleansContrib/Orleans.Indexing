@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
@@ -26,7 +27,7 @@ namespace Orleans.Indexing.Tests.LuceneTests
         [Fact]
         public void Index_Write_Query()
         {
-            Directory RamDirectory = FSDirectory.Open(indexPath);
+            var RamDirectory = FSDirectory.Open(indexPath);
 
             Analyzer analyzer = new StandardAnalyzer(AppLuceneVersion);
 
@@ -57,6 +58,7 @@ namespace Orleans.Indexing.Tests.LuceneTests
                 hitDoc.Get(FieldName).Should().Be(Text);
             }
 
+
             indexWriter.DeleteDocuments(query);
             indexWriter.Commit();
             // indexWriter.Flush(true,true);
@@ -72,6 +74,48 @@ namespace Orleans.Indexing.Tests.LuceneTests
 
             indexReader2.Dispose();
             indexReader.Dispose();
+        }
+
+        [Fact]
+        public async Task GrainTest()
+        {
+            var grain = new IndexGrain();
+
+            await grain.OnActivateAsync();
+
+            int count = 0;
+            int foundCont = 0;
+
+            await Task.WhenAll(Task.Run(async () =>
+            {
+                for (int i = 0; i < 150; i++)
+                {
+                    var doc = new GrainDocument(i.ToString());
+                    doc.LuceneDocument.Add(new StringField("property",$"i={i}", Field.Store.YES));
+                    await grain.WriteIndex(doc);
+                    count++;
+                }
+            }), Task.Run( async () =>
+            {
+                await Task.Delay(1000);
+                for (int i = 0; i < 300; i++)
+                {
+                    var doc = await grain.QueryByField("property",$"i={i}");
+                    count++;
+
+                    if (doc.TotalHits > 0)
+                    {
+                        foundCont += 1;
+                    }
+
+                }
+            }));
+
+            await grain.OnDeactivateAsync();
+
+            count.Should().Be(450);
+            foundCont.Should().Be(150);
+
         }
     }
 }
