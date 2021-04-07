@@ -23,16 +23,6 @@ namespace Orleans.Indexing.Tests
 
         internal static ISiloBuilder Configure(ISiloBuilder hostBuilder, string databaseName = null)
         {
-            string cosmosDBEndpoint = string.Empty, cosmosDBKey = string.Empty;
-            if (databaseName != null)
-            {
-                if (!TestDefaultConfiguration.GetValue("CosmosDBEndpoint", out cosmosDBEndpoint)
-                    || !TestDefaultConfiguration.GetValue("CosmosDBKey", out cosmosDBKey))
-                {
-                    throw new IndexConfigurationException("CosmosDB connection values are not specified");
-                }
-            }
-
             hostBuilder.AddMemoryGrainStorage(IndexingTestConstants.GrainStore)
                        .AddMemoryGrainStorage("PubSubStore") // PubSubStore service is needed for the streams underlying OrleansQueryResults
                        .ConfigureLogging(loggingBuilder =>
@@ -58,36 +48,6 @@ namespace Orleans.Indexing.Tests
                                 {
                                     parts.AddApplicationPart(typeof(BaseIndexingFixture).Assembly);
                                 });
-        }
-
-        // Code below adapted from ApplicationPartsIndexableGrainLoader to identify the necessary fields for the DSMI storage
-        // provider to index.
-
-        private static IEnumerable<string> GetDSMIStateFieldsToIndex()
-        {
-            var grainClassTypes = typeof(BaseIndexingFixture).Assembly.GetConcreteGrainClasses().ToArray();
-
-            // Orleans.CosmosDB appends the field names to "State."; thus we do not prepend the interface names.
-            var interfacesToIndexedPropertyNames = new Dictionary<Type, string[]>();
-            foreach (var grainClassType in grainClassTypes)
-            {
-                GetDSMIFieldsForASingleGrainType(grainClassType, interfacesToIndexedPropertyNames);
-            }
-            return new HashSet<string>(interfacesToIndexedPropertyNames.Where(kvp => kvp.Value.Length > 0).SelectMany(kvp => kvp.Value));
-        }
-
-        internal static void GetDSMIFieldsForASingleGrainType(Type grainClassType, Dictionary<Type, string[]> interfacesToIndexedPropertyNames)
-        {
-            foreach (var (grainInterfaceType, propertiesClassType) in ApplicationPartsIndexableGrainLoader.EnumerateIndexedInterfacesForAGrainClassType(grainClassType)
-                                                                        .Where(tup => !interfacesToIndexedPropertyNames.ContainsKey(tup.interfaceType)))
-            {
-                // TODO: See comments in DSMIGrain.LookupGrainReferences; get the path with and without the transactional storage wrapper prefix.
-                interfacesToIndexedPropertyNames[grainInterfaceType] = propertiesClassType.GetProperties()
-                                                                        .Where(propInfo => propInfo.GetCustomAttributes<StorageManagedIndexAttribute>(inherit: false).Any())
-                                                                        .Select(propInfo => IndexingConstants.UserStatePrefix + propInfo.Name)
-                                                                        .SelectMany(path => new[] {path, $"{nameof(TransactionalStateRecord<object>.CommittedState)}.{path}"})
-                                                                        .ToArray();
-            }
         }
     }
 }

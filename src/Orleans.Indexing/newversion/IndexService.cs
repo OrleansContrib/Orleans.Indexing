@@ -55,7 +55,7 @@ namespace Orleans.Indexing
     {
         // Ensures index backward compatibility
         private const LuceneVersion AppLuceneVersion = LuceneVersion.LUCENE_48;
-        private static string indexPath = "indexPath.luc";
+        private static string indexPath = "indexPath";
         private Lucene.Net.Store.Directory indexDirectory;
         private DirectoryReader directoryReader;
         private Analyzer analyzer;

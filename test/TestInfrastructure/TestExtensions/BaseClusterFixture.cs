@@ -34,7 +34,7 @@ namespace TestExtensions
             var builder = new TestClusterBuilder();
             TestDefaultConfiguration.ConfigureTestCluster(builder);
             ConfigureTestCluster(builder);
-
+            builder.Options.ServiceId = Guid.NewGuid().ToString();
             var testCluster = builder.Build();
             if (testCluster?.Primary == null)
             {
@@ -62,7 +62,7 @@ namespace TestExtensions
         public IClusterClient Client => this.HostedCluster?.Client;
 
         public ILogger Logger { get; }
-        
+
         public virtual void Dispose()
         {
             this.HostedCluster?.StopAllSilos();
