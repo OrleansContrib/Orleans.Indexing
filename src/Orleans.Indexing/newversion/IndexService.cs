@@ -55,15 +55,16 @@ namespace Orleans.Indexing
     {
         // Ensures index backward compatibility
         private const LuceneVersion AppLuceneVersion = LuceneVersion.LUCENE_48;
-        private static string indexPath = "indexPath";
-        private Lucene.Net.Store.Directory indexDirectory;
+        // private static string indexPath = "indexPath";
+        private BaseDirectory indexDirectory;
         private DirectoryReader directoryReader;
         private Analyzer analyzer;
         private IndexWriter indexWriter;
         private IndexSearcher indexSearcher;
+
         public override Task OnActivateAsync()
         {
-            this.indexDirectory = FSDirectory.Open(indexPath);
+            this.indexDirectory = GetDirectory();
             this.analyzer = new StandardAnalyzer(AppLuceneVersion);
             var config = new IndexWriterConfig(AppLuceneVersion, this.analyzer);
             this.indexWriter = new IndexWriter(this.indexDirectory, config);
@@ -82,6 +83,13 @@ namespace Orleans.Indexing
             this.directoryReader?.Dispose();
             return Task.CompletedTask;
         }
+
+        private BaseDirectory GetDirectory()
+        {
+            return new RAMDirectory();
+            // return FSDirectory.Open(indexPath);
+        }
+
         public Task WriteIndex(GrainDocument document) => Task.Run(() =>
         {
             var parser = new QueryParser(AppLuceneVersion, GrainDocument.GrainIdFieldName, this.analyzer);
