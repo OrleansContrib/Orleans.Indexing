@@ -50,7 +50,7 @@ namespace Orleans.Indexing
         /// registered to the IServiceCollection before Silo construction and the rest of Index creation requires the IServiceProvider which
         /// is created as part of Silo construction.</remarks>
         /// <returns>An index registry for the silo. </returns>
-        internal static void RegisterGrainServices(HostBuilderContext context, IServiceCollection services, IndexingOptions indexingOptions)
+        internal static void RegisterGrainServices(Microsoft.Extensions.Hosting.HostBuilderContext context, IServiceCollection services, IndexingOptions indexingOptions)
         {
             var indexedClasses = new HashSet<Type>();
             var indexedInterfaces = new HashSet<Type>();
@@ -189,7 +189,7 @@ namespace Orleans.Indexing
 
             foreach (var indexableBaseInterface in indexableBaseInterfaces)
             {
-                // ... and its generic argument is a class (TProperties)... 
+                // ... and its generic argument is a class (TProperties)...
                 var propertiesClassType = indexableBaseInterface.GetGenericArguments()[0];
                 if (propertiesClassType.GetTypeInfo().IsClass)
                 {

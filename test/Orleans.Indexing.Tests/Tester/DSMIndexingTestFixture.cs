@@ -6,14 +6,14 @@ namespace Orleans.Indexing.Tests
 {
     public class DSMIndexingTestFixture : IndexingTestFixture
     {
-        internal class SiloBuilderConfiguratorDSMI : ISiloBuilderConfigurator
+        internal class SiloBuilderConfiguratorDSMI : ISiloConfigurator
         {
             // Each class is an Xunit collection receiving the class fixture; we drop the database, so must
             // use a different DB name for each class.
             protected const string DatabaseNamePrefix = "IndexStorageTest_";
             internal virtual string GetDatabaseName() => throw new NotImplementedException();
 
-            public void Configure(ISiloHostBuilder hostBuilder) =>
+            public void Configure(ISiloBuilder hostBuilder) =>
                 BaseIndexingFixture.Configure(hostBuilder, GetDatabaseName())
                                    .UseIndexing(indexingOptions => ConfigureBasicOptions(indexingOptions));
         }
